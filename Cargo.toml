@@ -1,0 +1,37 @@
+[package]
+name = "lug"
+version = "0.0.1"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = {version = "3.0.7", features = ["derive"]}
+futures = "0.3.19"
+lazy_static = "1.4.0"
+nix = "0.23.1"
+oxide = {path = "./libs/oxide"}
+serde_yaml = "0.8.23"
+serde_with = "1.11.0"
+tera = "1.15.0"
+flate2 = "1.0.22"
+tar = "0.4.38"
+indicatif = "0.16.2"
+surf = "2.3.2"
+reqwest = "0.11.9"
+anyhow = "1.0.52"
+tempfile = "3.3.0"
+tokio = {version = "1.15.0", features = ["full"] }
+regex = "1.5.4"
+
+[dependencies.serde]
+version = "1.0.130"
+features = ["derive"]
+
+[dependencies.chrono]
+version = "0.4.19"
+features = ["serde"]
+
+[dependencies.mlua]
+version = "0.7"
+features = ["lua54", "vendored", "serialize", "async"]
