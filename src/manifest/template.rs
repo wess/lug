@@ -24,10 +24,12 @@ local function github(repo, opts)
     return repo .. "::https://github.com/" .. repo .. "/archive/refs/heads/" .. opts.branch .. ".tar.gz"
   elseif opts.tag then
     return repo .. "::https://github.com/" .. repo .. "/archive/refs/tags/" .. opts.tag .. ".tar.gz"
-  end
-  
+  end  
 end
 
+local function path(path)
+  return "path::" .. path
+end
 
 "#;
 
@@ -47,6 +49,8 @@ description = "{{decription}}"
 dependencies = {
 }
 
+source = { 
+}
 "#;
 
 pub const MANIFEST_FOOTER: &str = r#"
@@ -57,6 +61,7 @@ manifest.homepage = homepage
 manifest.description = description
 manifest.license = license
 manifest.dependencies = dependencies
+manifest.source = source or {}
 
 return manifest
 "#;

@@ -10,7 +10,7 @@
 
 use std::{
   env, 
-  path::Path,
+  path::{Path, PathBuf},
   fs::{
     File
   },
@@ -59,6 +59,7 @@ pub struct Manifest {
   pub description: Option<String>,
   pub license: String,
   pub dependencies: Vec<String>,
+  pub source: Vec<String>,
 }
 
 impl UserData for Manifest {}
@@ -86,13 +87,20 @@ impl Manifest {
   }
 
   pub fn load() -> Result<Self, io::Error> {
-    Self::read()
+    Self::read(None)
   }
 
-  fn read() -> Result<Self, io::Error> {
-    let cwd = env::current_dir().unwrap();
-    let path = cwd.join(".manifest");
-    let body = file_read!(path.to_str().unwrap());
+  pub fn read(path:Option<&PathBuf>) -> Result<Self, io::Error> {
+    let body:String;
+
+    if let Some(path) = path {
+      body = file_read!(path);
+    } else {
+      let cwd = env::current_dir().unwrap();
+      let path = cwd.join(".manifest");
+
+      body = file_read!(path.to_str().unwrap());
+    }
 
     let mut content = String::new();
     content.push_str(MANIFEST_HEADER);
@@ -133,6 +141,7 @@ impl Default for Manifest {
       description: None,
       license: "MIT".to_string(),
       dependencies: vec![],
+      source: vec![],
     }
   }
 }

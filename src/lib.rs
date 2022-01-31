@@ -22,7 +22,6 @@ extern crate oxide;
 pub mod result;
 pub use result::Result;
 
-pub mod installer;
 pub mod package;
 
 mod manifest;
